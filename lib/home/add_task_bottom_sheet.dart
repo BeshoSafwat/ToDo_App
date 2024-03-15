@@ -72,7 +72,7 @@ class _AddTashBottomSheetState extends State<AddTashBottomSheet> {
             child: Text(
               "${chosenDate.toString().substring(0, 10)}",
               style: GoogleFonts.poppins(
-                  fontSize: 25,
+                  fontSize: 18,
                   color: Colors.black,
                   fontWeight: FontWeight.w400),
             ),

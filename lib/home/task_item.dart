@@ -8,6 +8,7 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(18)),
       margin: EdgeInsets.symmetric(horizontal: 12),
@@ -44,7 +45,7 @@ class TaskItem extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  height: 80,
+                  height: 50,
                   width: 8,
                   decoration: BoxDecoration(
                     color: Colors.blue,
@@ -59,11 +60,11 @@ class TaskItem extends StatelessWidget {
                   children: [
                     Text(
                       "Task Title",
-                      style: GoogleFonts.poppins(fontSize: 25),
+                      style: GoogleFonts.poppins(fontSize: 20),
                     ),
                     Text(
                       "Task Description",
-                      style: GoogleFonts.poppins(fontSize: 25),
+                      style: GoogleFonts.poppins(fontSize: 17),
                     ),
                   ],
                 ),

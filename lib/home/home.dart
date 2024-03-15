@@ -26,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text(
             "To Do List",
-            style: GoogleFonts.poppins(fontSize: 30, color: Colors.white),
+            style: GoogleFonts.poppins(
+                fontSize: 22, color: Colors.white, fontWeight: FontWeight.w700),
           ),
           backgroundColor: Colors.blue,
         ),
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context) {
                 return Container(
                     // عشان يسمح انة ياخد مساحة لفوق علي قد الكيبورد
-      
+
                     padding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     child: AddTashBottomSheet());
