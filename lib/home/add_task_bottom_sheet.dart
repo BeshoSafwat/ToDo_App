@@ -1,5 +1,9 @@
+
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo/firebase/firebase_functions.dart';
+import 'package:todo/task_model.dart';
 
 class AddTashBottomSheet extends StatefulWidget {
   AddTashBottomSheet({super.key});
@@ -14,6 +18,7 @@ class _AddTashBottomSheetState extends State<AddTashBottomSheet> {
 
   var titleController = TextEditingController();
   var descriptionController = TextEditingController();
+  bool _validate = false;
 
   Widget build(BuildContext context) {
     return Padding(
@@ -81,13 +86,37 @@ class _AddTashBottomSheetState extends State<AddTashBottomSheet> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                onPressed: () {},
-                child: Text("Add Task",
-                    style: GoogleFonts.poppins(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300))),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              onPressed: () {
+                titleController.text.isEmpty
+                    ? _validate = true
+                    : _validate = false;
+
+                if (_validate == false) {
+                  TaskModel model = TaskModel(
+                      title: titleController.text,
+                      date:
+                          DateUtils.dateOnly(chosenDate).millisecondsSinceEpoch,
+                      description: descriptionController.text);
+                  FirebaseFunctions.addTask(model);
+                  Navigator.pop(context);
+                  //
+                } else {
+                  Navigator.pop(context);
+
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(snackBar);
+                }
+              },
+              child: Text(
+                "Add Task",
+                style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
           )
         ],
       ),
@@ -104,13 +133,22 @@ class _AddTashBottomSheetState extends State<AddTashBottomSheet> {
       ),
       //barrierColor: Colors.transparent,
       confirmText: "ok",
-      // لو دوست في اي حتة في الشاشة يقفل
       barrierDismissible: true,
     );
     if (selectedDate != null) {
       chosenDate = selectedDate;
       setState(() {});
-
     }
   }
+
+  final snackBar = SnackBar(
+    elevation: 0,
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    content: AwesomeSnackbarContent(
+      title: 'Title Required!',
+      message: 'Please enter title!',
+      contentType: ContentType.help,
+    ),
+  );
 }

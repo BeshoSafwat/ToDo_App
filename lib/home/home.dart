@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/home/add_task_bottom_sheet.dart';
@@ -35,18 +34,16 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
-              // عشان يسمح انة ياخد مساحة لفوق علي قد الكيبورد
               isScrollControlled: true,
-              // لو دوست في اي حتة يتقفل
+
               //isDismissible: true,
               context: context,
               builder: (context) {
                 return Container(
-                    // عشان يسمح انة ياخد مساحة لفوق علي قد الكيبورد
-
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: AddTashBottomSheet());
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: AddTashBottomSheet(),
+                );
               },
             );
           },
@@ -63,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
           shape: CircularNotchedRectangle(),
           notchMargin: 8,
           color: Colors.white,
-          height: 84,
+          padding: EdgeInsets.zero,
           child: BottomNavigationBar(
               currentIndex: index,
               onTap: (value) {

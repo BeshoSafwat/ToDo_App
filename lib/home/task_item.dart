@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo/firebase/firebase_functions.dart';
+import 'package:todo/task_model.dart';
 
 class TaskItem extends StatelessWidget {
-  const TaskItem({super.key});
+  TaskModel taskModel;
+
+  TaskItem({required this.taskModel, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(18)),
       margin: EdgeInsets.symmetric(horizontal: 12),
@@ -16,10 +19,11 @@ class TaskItem extends StatelessWidget {
         padding: EdgeInsets.all(8.0),
         child: Slidable(
           startActionPane:
-              ActionPane(motion: DrawerMotion(), extentRatio: .5, children: [
+              ActionPane(motion: DrawerMotion(), extentRatio: .6, children: [
             SlidableAction(
               onPressed: (context) {
                 //
+                FirebaseFunctions.deleteTask(taskModel.id ?? "");
               },
               spacing: 12,
               icon: Icons.delete,
@@ -32,7 +36,7 @@ class TaskItem extends StatelessWidget {
             ),
             SlidableAction(
               onPressed: (context) {
-                //
+                FirebaseFunctions.deleteTask(taskModel.id??"");
               },
               spacing: 12,
               icon: Icons.edit,
@@ -59,11 +63,11 @@ class TaskItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Task Title",
+                      taskModel.title ?? "",
                       style: GoogleFonts.poppins(fontSize: 20),
                     ),
                     Text(
-                      "Task Description",
+                      taskModel.description ?? "",
                       style: GoogleFonts.poppins(fontSize: 17),
                     ),
                   ],
